@@ -10,6 +10,7 @@ var tempIndex = 0;
 var humIndex = 0;
 var lastWeek = new Date();
 var week;
+var copyResponse;
 
 document.addEventListener("DOMContentLoaded", () => {
     getData();
@@ -25,12 +26,12 @@ function getData(ev)
         return response.json();
     })
         .then(writeDayData)
-        .then(writeWeekData)
-        .catch(console.warn("Something went wrong"));
+        .catch(console.warn);
 }
 
 function writeDayData(response)
 {
+    copyResponse = response;
     console.log(response);
     console.log("Giorno");
     tempIndex=0;
@@ -60,6 +61,7 @@ function writeDayData(response)
 
     //for(let i=0; i<humidity_data.length; i++)
         //main.innerHTML += "<h4>" + humidity_data[i] + "</h4>";
+    writeWeekData(copyResponse);
 }
 
 function writeWeekData(response)
@@ -70,9 +72,9 @@ function writeWeekData(response)
     console.log(response);
     console.log("Settimana");
 
-    //currentResponse = response.pop();
-    //week = currentResponse["data_ora"].slice(0,10);
-    //lastWeek.setDate(week.getDate() - 7);
+    currentResponse = response.pop();
+    week = currentResponse["data_ora"].slice(0,10);
+    lastWeek.setDate(week.getDate() - 7);
 
     main.innerHTML += "<h4>" + week + "</h4>";
     main.innerHTML += "<h4>" + lastWeek + "</h4>"
