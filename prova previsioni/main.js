@@ -1,13 +1,14 @@
-var dataUrl = new URL("http://"), apiCounter=0;
+//apikey = EVPUPWJLED7AAULMJBMDVB3GJ
+dataUrl = new URL("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=Urbino,PU,61034&aggregateHours=24&unitGroup=us&shortColumnNames=false&contentType=json&key=EVPUPWJLED7AAULMJBMDVB3GJ");
 var i; 
 
 document.addEventListener("DOMContentLoaded", () => {
-    getPrevisionData();
+    getPrevision();
 });
 
 function getPrevision()
 {
-    fetch("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Urbino?unitGroup=metric&key=EVPUPWJLED7AAULMJBMDVB3GJ&contentType=json")
+    fetch(dataUrl)
         .then(response => 
         {
             if(!response.ok)
@@ -24,4 +25,5 @@ function getPrevision()
 function getForecastData(response)
 {
     console.log(response);
+    console.log(response.locations["Urbino,PU,61034"].currentConditions.temp);
 }
